@@ -1,0 +1,20 @@
+server:
+    port: 8080
+spring:
+    application:
+        name: PE-Gateway
+    cloud:
+        gateway:
+            routes:
+                - id: pe-auth-service
+                  uri: http://localhost:8081
+                  predicates:
+                    - Path=/auth/**
+                  filters:
+                    - AddGatewayAllowHeaderFilter
+                - id: pe-base-service
+                  uri: http://localhost:8082
+                  predicates:
+                    - Path=/base/**
+                  filters:
+                    - AddGatewayAllowHeaderFilter
